@@ -1,157 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ViralMate AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViralMate AI</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #F7F7FA;
-      color: #171725;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 25px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f7f7ff, #eef2ff);
+  color: #171725;
+}
 
-    h1 {
-      color: #6C4CE6;
-    }
+.container {
+  max-width: 720px;
+  margin: auto;
+  padding: 22px 16px 40px;
+}
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      margin-top: 20px;
-    }
+.header {
+  text-align: center;
+  padding: 25px 10px;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 12px;
-      background: #6C4CE6;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-    }
+.logo {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #6c35ff, #ff3d81);
+  -webkit-background-clip: text;
+  color: transparent;
+}
 
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 12px;
-      box-sizing: border-box;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-    }
+.tagline {
+  color: #666;
+  margin-top: 8px;
+}
 
-    #result {
-      margin-top: 15px;
-      padding: 15px;
-      background: #f0edff;
-      border-radius: 12px;
-      white-space: pre-wrap;
-    }
-  </style>
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+textarea:focus,
+select:focus {
+  border-color: #6c35ff;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(90deg, #6c35ff, #ff3d81);
+  color: white;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.quick-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.quick-buttons button {
+  background: #f0edff;
+  color: #5b2ee6;
+  font-size: 13px;
+  padding: 11px 5px;
+}
+
+.result {
+  display: none;
+}
+
+.result-box {
+  background: #f7f7fb;
+  border-radius: 14px;
+  padding: 15px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.copy-btn {
+  background: #171725;
+}
+
+.feature {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.icon {
+  font-size: 25px;
+}
+
+.footer {
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+  margin-top: 25px;
+}
+
+@media (max-width: 500px) {
+  .logo {
+    font-size: 30px;
+  }
+
+  .quick-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <h1>ViralMate AI 🚀</h1>
-  <p>Create. Post. Grow.</p>
+  <div class="header">
+    <div class="logo">✨ ViralMate AI</div>
+    <div class="tagline">
+      Create captions, scripts and viral content ideas
+    </div>
+  </div>
 
   <div class="card">
 
-    <h2>Create Content</h2>
+    <label for="contentType">What do you want to create?</label>
 
-    <textarea id="topic"
-      placeholder="Enter your topic..."></textarea>
+    <select id="contentType">
+      <option value="caption">🔥 Viral Caption</option>
+      <option value="script">🎬 Video Script</option>
+      <option value="ideas">💡 Content Ideas</option>
+    </select>
 
-    <button onclick="caption()">
-      ✍️ Create Caption
+    <label for="topic">Tell ViralMate your topic</label>
+
+    <textarea
+      id="topic"
+      placeholder="Example: Fashion, motivation, cooking, beauty, business..."
+    ></textarea>
+
+    <button onclick="generateContent()">
+      ✨ Generate Content
     </button>
 
-    <button onclick="script()">
-      🎬 Create Video Script
-    </button>
-
-    <button onclick="ideas()">
-      💡 Get Content Ideas
-    </button>
-
-    <div id="result">
-      Your result will appear here.
+    <div class="quick-buttons">
+      <button onclick="setTopic('Fashion')">👗 Fashion</button>
+      <button onclick="setTopic('Motivation')">💪 Motivation</button>
+      <button onclick="setTopic('Business')">💰 Business</button>
     </div>
 
+  </div>
+
+  <div class="card result" id="result">
+
+    <h2 id="resultTitle">Your Viral Content</h2>
+
+    <div class="result-box" id="resultText"></div>
+
+    <button class="copy-btn" onclick="copyContent()">
+      📋 Copy Content
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🚀 What ViralMate Can Do</h2>
+
+    <div class="feature">
+      <div class="icon">🔥</div>
+      <div>
+        <strong>Viral Captions</strong><br>
+        Create attention-grabbing social media captions.
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="icon">🎬</div>
+      <div>
+        <strong>Video Scripts</strong><br>
+        Get simple ideas for short-form videos.
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="icon">💡</div>
+      <div>
+        <strong>Content Ideas</strong><br>
+        Discover ideas you can turn into posts and videos.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 ViralMate AI • Create. Post. Grow.
   </div>
 
 </div>
 
 <script>
 
-function getTopic() {
-  return document.getElementById("topic").value.trim() || "social media";
+function setTopic(topic) {
+  document.getElementById("topic").value = topic;
 }
 
-function show(text) {
-  document.getElementById("result").textContent = text;
-}
+function generateContent() {
 
-function caption() {
-  const topic = getTopic();
+  const type = document.getElementById("contentType").value;
+  const topic = document.getElementById("topic").value.trim();
 
-  show(
-`🔥 ${topic} content that deserves attention!
+  if (!topic) {
+    alert("Please enter a topic first.");
+    return;
+  }
 
-Create something useful, share it consistently and keep improving.
+  let title = "";
+  let content = "";
 
-#${topic.replace(/\s+/g, "")} #ContentCreator #ViralMateAI`
-  );
-}
+  if (type === "caption") {
 
-function script() {
-  const topic = getTopic();
+    title = "🔥 Your Viral Caption";
 
-  show(
-`VIDEO SCRIPT — ${topic}
+    content =
+`Stop scrolling! 👀
+
+Let's talk about ${topic}.
+
+Sometimes one simple idea can change everything. ✨
+
+What do you think about this?
+
+👇 Tell me your opinion in the comments.
+
+#${topic.replace(/\s+/g, "")} #Trending #Viral #ContentCreator`;
+
+  }
+
+  if (type === "script") {
+
+    title = "🎬 Your Video Script";
+
+    content =
+`VIDEO TOPIC: ${topic}
 
 HOOK:
-"Stop scrolling for a second..."
+"Wait! You need to hear this before you scroll..."
 
-SCENE 1:
-Introduce the topic.
+PART 1:
+Introduce the topic and explain why people should care.
 
-SCENE 2:
-Give one useful tip.
+PART 2:
+Give 2 or 3 useful points about ${topic}.
 
-SCENE 3:
-Give another helpful example.
+PART 3:
+Ask viewers a simple question.
 
-CTA:
-"Follow for more helpful content!"`
-  );
+ENDING:
+"Follow for more content like this and share this video with someone who needs it!"
+
+`;
+
+  }
+
+  if (type === "ideas") {
+
+    title = "💡 Your Content Ideas";
+
+    content =
+`Here are 5 content ideas about ${topic}:
+
+1. "5 things people should know about ${topic}"
+
+2. "The biggest mistake people make with ${topic}"
+
+3. "Beginner's guide to ${topic}"
+
+4. "Things I wish I knew about ${topic}"
+
+5. "My honest opinion about ${topic}"
+
+BONUS:
+Turn each idea into a short video, Facebook post, or TikTok-style post.`;
+
+  }
+
+  document.getElementById("resultTitle").textContent = title;
+  document.getElementById("resultText").textContent = content;
+  document.getElementById("result").style.display = "block";
+
+  window.scrollTo({
+    top: document.getElementById("result").offsetTop - 15,
+    behavior: "smooth"
+  });
 }
 
-function ideas() {
-  const topic = getTopic();
+function copyContent() {
 
-  show(
-`5 CONTENT IDEAS — ${topic}
+  const text = document.getElementById("resultText").textContent;
 
-1. Beginner tips
-2. Common mistakes
-3. Quick tutorial
-4. Before-and-after idea
-5. Ask your audience a question`
-  );
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      alert("✅ Content copied!");
+    })
+    .catch(() => {
+      alert("Please select and copy the content manually.");
+    });
 }
 
 </script>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViralMate AI</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #F7F7FA;
+      color: #171725;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    h1 {
+      color: #6C4CE6;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 12px;
+      background: #6C4CE6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 12px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    #result {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0edff;
+      border-radius: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>ViralMate AI 🚀</h1>
+  <p>Create. Post. Grow.</p>
+
+  <div class="card">
+
+    <h2>Create Content</h2>
+
+    <textarea id="topic"
+      placeholder="Enter your topic..."></textarea>
+
+    <button onclick="caption()">
+      ✍️ Create Caption
+    </button>
+
+    <button onclick="script()">
+      🎬 Create Video Script
+    </button>
+
+    <button onclick="ideas()">
+      💡 Get Content Ideas
+    </button>
+
+    <div id="result">
+      Your result will appear here.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+function getTopic() {
+  return document.getElementById("topic").value.trim() || "social media";
+}
+
+function show(text) {
+  document.getElementById("result").textContent = text;
+}
+
+function caption() {
+  const topic = getTopic();
+
+  show(
+`🔥 ${topic} content that deserves attention!
+
+Create something useful, share it consistently and keep improving.
+
+#${topic.replace(/\s+/g, "")} #ContentCreator #ViralMateAI`
+  );
+}
+
+function script() {
+  const topic = getTopic();
+
+  show(
+`VIDEO SCRIPT — ${topic}
+
+HOOK:
+"Stop scrolling for a second..."
+
+SCENE 1:
+Introduce the topic.
+
+SCENE 2:
+Give one useful tip.
+
+SCENE 3:
+Give another helpful example.
+
+CTA:
+"Follow for more helpful content!"`
+  );
+}
+
+function ideas() {
+  const topic = getTopic();
+
+  show(
+`5 CONTENT IDEAS — ${topic}
+
+1. Beginner tips
+2. Common mistakes
+3. Quick tutorial
+4. Before-and-after idea
+5. Ask your audience a question`
+  );
+}
+
+</script>
+
+</body>
+  </html>

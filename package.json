@@ -1,13 +1,11 @@
 {
   "name": "viralmate-ai",
   "version": "1.0.0",
-  "private": true,
-  "description": "ViralMate AI",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-  "express": "^5.1.0",
-  "openai": "^6.0.0"
+    "express": "^5.1.0",
+    "openai": "^6.0.0"
+  }
 }

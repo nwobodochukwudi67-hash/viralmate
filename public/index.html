@@ -158,3 +158,54 @@ function ideas() {
 
 </body>
   </html>
+<section style="margin:30px 0;padding:24px;border-radius:18px;background:#ffffff;box-shadow:0 8px 25px rgba(0,0,0,.08)">
+  <h2>🎬 Video Content Planner</h2>
+  <p>Turn your topic into a simple short-video plan.</p>
+
+  <textarea id="videoTopic" placeholder="Example: fashion tips for beginners"
+    style="width:100%;min-height:90px;padding:12px;border-radius:10px;border:1px solid #ddd;"></textarea>
+
+  <button onclick="makeVideoPlan()"
+    style="margin-top:12px;padding:12px 18px;border:0;border-radius:10px;cursor:pointer;">
+    🎬 Create Video Plan
+  </button>
+
+  <div id="videoResult" style="margin-top:18px;white-space:pre-wrap;"></div>
+</section>
+
+<script>
+function makeVideoPlan() {
+  const topic = document.getElementById("videoTopic").value.trim();
+  const result = document.getElementById("videoResult");
+
+  if (!topic) {
+    result.textContent = "Please enter a topic first.";
+    return;
+  }
+
+  result.textContent =
+`🎬 VIDEO PLAN
+
+Topic: ${topic}
+
+🪝 HOOK:
+“Want to know more about ${topic}? Watch this!”
+
+📝 SHORT SCRIPT:
+Start by introducing ${topic}.
+Give 2–3 useful points about it.
+Finish with a simple call to action.
+
+🎥 SCENE IDEAS:
+1. Show the topic.
+2. Show the first tip.
+3. Show the second tip.
+4. End with a clear message.
+
+📌 CAPTION:
+“Here are some useful tips about ${topic}! Save this for later.”
+
+#️⃣ HASHTAGS:
+#${topic.replace(/\\s+/g, "")} #Tips #ViralMateAI #ContentCreator`;
+}
+</script>

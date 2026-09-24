@@ -351,6 +351,58 @@ function copyContent() {
 }
 
 </script>
+<section class="card" id="videoPlanner">
+  <h2>🎬 Video Content Planner</h2>
+  <p>Turn your topic into a simple short-video plan.</p>
 
+  <textarea
+    id="videoTopic"
+    placeholder="Example: fashion tips for beginners..."
+  ></textarea>
+
+  <button onclick="makeVideoPlan()">
+    🎬 Create Video Plan
+  </button>
+
+  <div class="result-box" id="videoResult" style="display:none;"></div>
+</section>
+
+<script>
+function makeVideoPlan() {
+  const topic = document.getElementById("videoTopic").value.trim();
+  const result = document.getElementById("videoResult");
+
+  if (!topic) {
+    alert("Please enter a topic first.");
+    return;
+  }
+
+  result.textContent =
+`🎬 VIDEO PLAN — ${topic}
+
+🪝 HOOK:
+"Stop scrolling! Here are useful things you should know about ${topic}."
+
+📝 SHORT SCRIPT:
+Start by introducing ${topic}.
+Give 2 or 3 useful points.
+Finish by asking viewers to follow or comment.
+
+🎥 SCENE IDEAS:
+1. Show the topic.
+2. Explain your first point.
+3. Show an example.
+4. Give your final tip.
+5. End with a call to action.
+
+📌 CAPTION:
+"Here are some useful tips about ${topic}! Save this video for later."
+
+#️⃣ HASHTAGS:
+#${topic.replace(/\s+/g, "")} #ViralMateAI #ContentCreator #VideoIdeas`;
+
+  result.style.display = "block";
+}
+</script>
 </body>
   </html>

@@ -1,5 +1,10 @@
 const express = require("express");
 const path = require("path");
+const OpenAI = require("openai");
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,13 +19,32 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.get("/api/paystack/config", (req, res) => {
-  res.json({
-    publicKey: process.env.PAYSTACK_PUBLIC_KEY || "",
-    planCode: process.env.PAYSTACK_PLAN_CODE || ""
-  });
-});
+app.post("/api/generate-image", async (req, res) => {
+  try {
+    const { prompt } = req.body;
 
+    if (!prompt || !prompt.trim()) {
+      return res.status(400).json({
+        error: "Please enter an image prompt."
+      });
+    }
+
+    const result = await openai.images.generate({
+      model: "gpt-image-2",
+      prompt: prompt.trim()
+    });
+
+    res.json({
+      image: result.data[0].b64_json
+    });
+  } catch (error) {
+    console.error("Image generation error:", error);
+
+    res.status(500).json({
+      error: "Image generation failed."
+    });
+  }
+});
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });

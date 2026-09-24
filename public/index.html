@@ -221,3 +221,49 @@ Finish with a simple call to action.
 #${topic.replace(/\\s+/g, "")} #Tips #ViralMateAI #ContentCreator`;
 }
 </script>
+<section style="margin:30px 0;padding:24px;background:#f5f5f5;border-radius:16px;">
+  <h2>🖼️ AI Picture Generator</h2>
+
+  <p>Describe the picture you want ViralMate AI to create.</p>
+
+  <textarea
+    id="imagePrompt"
+    placeholder="Example: A beautiful fashion photoshoot in a modern studio"
+    style="width:100%;min-height:100px;padding:12px;border-radius:10px;"
+  ></textarea>
+
+  <button
+    onclick="generateImagePrompt()"
+    style="margin-top:12px;padding:12px 18px;border:0;border-radius:10px;cursor:pointer;"
+  >
+    🖼️ Create Picture
+  </button>
+
+  <div
+    id="imageResult"
+    style="margin-top:18px;white-space:pre-wrap;"
+  ></div>
+</section>
+
+<script>
+function generateImagePrompt() {
+  const prompt = document.getElementById("imagePrompt").value.trim();
+  const result = document.getElementById("imageResult");
+
+  if (!prompt) {
+    result.textContent = "Please describe the picture you want first.";
+    return;
+  }
+
+  result.textContent =
+`🖼️ PICTURE REQUEST
+
+Your idea:
+${prompt}
+
+🎨 STYLE:
+High-quality • Detailed • Social-media friendly
+
+✨ Picture generator interface is ready!`;
+}
+</script>

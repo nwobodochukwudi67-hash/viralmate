@@ -42,10 +42,14 @@ app.post("/api/generate-image", async (req, res) => {
 
 
 
+  } catch (error) {
+    console.error("Image generation error:", error);
+
     res.status(500).json({
       error: error.message || "Image generation failed."
     });
   }
+});
 });
   }
 });

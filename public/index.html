@@ -246,7 +246,7 @@ Finish with a simple call to action.
 </section>
 
 <script>
-function generateImagePrompt() {
+async function generateImagePrompt() {
   const prompt = document.getElementById("imagePrompt").value.trim();
   const result = document.getElementById("imageResult");
 
@@ -255,15 +255,34 @@ function generateImagePrompt() {
     return;
   }
 
-  result.textContent =
-`🖼️ PICTURE REQUEST
+  result.textContent = "🖼️ Creating your picture... Please wait.";
 
-Your idea:
-${prompt}
+  try {
+    const response = await fetch("/api/generate-image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ prompt: prompt })
+    });
 
-🎨 STYLE:
-High-quality • Detailed • Social-media friendly
+    const data = await response.json();
 
-✨ Picture generator interface is ready!`;
+    if (!response.ok) {
+      throw new Error(data.error || "Image generation failed.");
+    }
+
+    result.innerHTML = `
+      <p>✨ Your picture is ready!</p>
+      <img
+        src="data:image/png;base64,${data.image}"
+        alt="AI generated picture"
+        style="width:100%;border-radius:15px;margin-top:10px;"
+      >
+    `;
+  } catch (error) {
+    console.error(error);
+    result.textContent =
+      "❌ The picture could not be created. Please try again.";
+  }
 }
-</script>

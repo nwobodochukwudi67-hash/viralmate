@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ViralMate AI</title>
 
 <style>
@@ -86,6 +87,7 @@ button {
   cursor: pointer;
   background: linear-gradient(90deg, #6c35ff, #ff3d81);
   color: white;
+  margin-top: 8px;
 }
 
 button:active {
@@ -116,7 +118,8 @@ button:active {
   padding: 15px;
   white-space: pre-wrap;
   line-height: 1.6;
-  margin-bottom: 12px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
 }
 
 .copy-btn {
@@ -141,6 +144,19 @@ button:active {
   margin-top: 25px;
 }
 
+.generated-image {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 16px;
+  margin-top: 12px;
+}
+
+.status {
+  margin-top: 12px;
+  font-weight: bold;
+}
+
 @media (max-width: 500px) {
   .logo {
     font-size: 30px;
@@ -159,14 +175,19 @@ button:active {
 
   <div class="header">
     <div class="logo">✨ ViralMate AI</div>
+
     <div class="tagline">
-      Create captions, scripts and viral content ideas
+      Create captions, scripts, video plans and AI pictures
     </div>
   </div>
 
+
+  <!-- CREATE CONTENT -->
   <div class="card">
 
-    <label for="contentType">What do you want to create?</label>
+    <label for="contentType">
+      What do you want to create?
+    </label>
 
     <select id="contentType">
       <option value="caption">🔥 Viral Caption</option>
@@ -174,7 +195,9 @@ button:active {
       <option value="ideas">💡 Content Ideas</option>
     </select>
 
-    <label for="topic">Tell ViralMate your topic</label>
+    <label for="topic">
+      Tell ViralMate your topic
+    </label>
 
     <textarea
       id="topic"
@@ -186,16 +209,28 @@ button:active {
     </button>
 
     <div class="quick-buttons">
-      <button onclick="setTopic('Fashion')">👗 Fashion</button>
-      <button onclick="setTopic('Motivation')">💪 Motivation</button>
-      <button onclick="setTopic('Business')">💰 Business</button>
+      <button onclick="setTopic('Fashion')">
+        👗 Fashion
+      </button>
+
+      <button onclick="setTopic('Motivation')">
+        💪 Motivation
+      </button>
+
+      <button onclick="setTopic('Business')">
+        💰 Business
+      </button>
     </div>
 
   </div>
 
+
+  <!-- CONTENT RESULT -->
   <div class="card result" id="result">
 
-    <h2 id="resultTitle">Your Viral Content</h2>
+    <h2 id="resultTitle">
+      Your Viral Content
+    </h2>
 
     <div class="result-box" id="resultText"></div>
 
@@ -205,12 +240,74 @@ button:active {
 
   </div>
 
+
+  <!-- VIDEO CONTENT PLANNER -->
+  <div class="card">
+
+    <h2>🎬 Video Content Planner</h2>
+
+    <p>
+      Turn your topic into a simple short-video plan.
+    </p>
+
+    <textarea
+      id="videoTopic"
+      placeholder="Example: fashion tips for beginners..."
+    ></textarea>
+
+    <button onclick="makeVideoPlan()">
+      🎬 Create Video Plan
+    </button>
+
+    <div
+      class="result-box"
+      id="videoResult"
+      style="display:none;"
+    ></div>
+
+  </div>
+
+
+  <!-- AI PICTURE GENERATOR -->
+  <div class="card">
+
+    <h2>🖼️ AI Picture Generator</h2>
+
+    <p>
+      Describe the picture you want ViralMate AI to create.
+    </p>
+
+    <textarea
+      id="imagePrompt"
+      placeholder="Example: A beautiful fashion photoshoot in a modern studio"
+    ></textarea>
+
+    <button onclick="generateImagePrompt()">
+      🖼️ Create Picture
+    </button>
+
+    <div
+      id="imageStatus"
+      class="status"
+    ></div>
+
+    <div
+      id="imageResult"
+      class="result-box"
+      style="display:none;"
+    ></div>
+
+  </div>
+
+
+  <!-- FEATURES -->
   <div class="card">
 
     <h2>🚀 What ViralMate Can Do</h2>
 
     <div class="feature">
       <div class="icon">🔥</div>
+
       <div>
         <strong>Viral Captions</strong><br>
         Create attention-grabbing social media captions.
@@ -219,6 +316,7 @@ button:active {
 
     <div class="feature">
       <div class="icon">🎬</div>
+
       <div>
         <strong>Video Scripts</strong><br>
         Get simple ideas for short-form videos.
@@ -227,13 +325,24 @@ button:active {
 
     <div class="feature">
       <div class="icon">💡</div>
+
       <div>
         <strong>Content Ideas</strong><br>
-        Discover ideas you can turn into posts and videos.
+        Discover ideas for posts and videos.
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="icon">🖼️</div>
+
+      <div>
+        <strong>AI Pictures</strong><br>
+        Turn your description into an AI-generated picture.
       </div>
     </div>
 
   </div>
+
 
   <div class="footer">
     © 2026 ViralMate AI • Create. Post. Grow.
@@ -241,16 +350,21 @@ button:active {
 
 </div>
 
+
 <script>
 
 function setTopic(topic) {
   document.getElementById("topic").value = topic;
 }
 
+
 function generateContent() {
 
-  const type = document.getElementById("contentType").value;
-  const topic = document.getElementById("topic").value.trim();
+  const type =
+    document.getElementById("contentType").value;
+
+  const topic =
+    document.getElementById("topic").value.trim();
 
   if (!topic) {
     alert("Please enter a topic first.");
@@ -259,6 +373,7 @@ function generateContent() {
 
   let title = "";
   let content = "";
+
 
   if (type === "caption") {
 
@@ -278,6 +393,7 @@ What do you think about this?
 #${topic.replace(/\s+/g, "")} #Trending #Viral #ContentCreator`;
 
   }
+
 
   if (type === "script") {
 
@@ -299,11 +415,10 @@ PART 3:
 Ask viewers a simple question.
 
 ENDING:
-"Follow for more content like this and share this video with someone who needs it!"
-
-`;
+"Follow for more content like this and share this video with someone who needs it!"`;
 
   }
+
 
   if (type === "ideas") {
 
@@ -327,50 +442,52 @@ Turn each idea into a short video, Facebook post, or TikTok-style post.`;
 
   }
 
+
   document.getElementById("resultTitle").textContent = title;
+
   document.getElementById("resultText").textContent = content;
+
   document.getElementById("result").style.display = "block";
 
   window.scrollTo({
     top: document.getElementById("result").offsetTop - 15,
     behavior: "smooth"
   });
+
 }
+
 
 function copyContent() {
 
-  const text = document.getElementById("resultText").textContent;
+  const text =
+    document.getElementById("resultText").textContent;
 
-  navigator.clipboard.writeText(text)
-    .then(() => {
-      alert("✅ Content copied!");
-    })
-    .catch(() => {
-      alert("Please select and copy the content manually.");
-    });
+  if (navigator.clipboard) {
+
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert("✅ Content copied!");
+      })
+      .catch(() => {
+        alert("Please select and copy the content manually.");
+      });
+
+  } else {
+
+    alert("Please select and copy the content manually.");
+
+  }
+
 }
 
-</script>
-<section class="card" id="videoPlanner">
-  <h2>🎬 Video Content Planner</h2>
-  <p>Turn your topic into a simple short-video plan.</p>
 
-  <textarea
-    id="videoTopic"
-    placeholder="Example: fashion tips for beginners..."
-  ></textarea>
-
-  <button onclick="makeVideoPlan()">
-    🎬 Create Video Plan
-  </button>
-
-  <div class="result-box" id="videoResult" style="display:none;"></div>
-</section>
-
-<script>
 function makeVideoPlan() {
-  const topic = document.getElementById("videoTopic").value.trim();
-  const result = document.getElementById("videoResult");
+
+  const topic =
+    document.getElementById("videoTopic").value.trim();
+
+  const result =
+    document.getElementById("videoResult");
 
   if (!topic) {
     alert("Please enter a topic first.");
@@ -402,7 +519,105 @@ Finish by asking viewers to follow or comment.
 #${topic.replace(/\s+/g, "")} #ViralMateAI #ContentCreator #VideoIdeas`;
 
   result.style.display = "block";
+
 }
+
+
+async function generateImagePrompt() {
+
+  const prompt =
+    document.getElementById("imagePrompt").value.trim();
+
+  const status =
+    document.getElementById("imageStatus");
+
+  const result =
+    document.getElementById("imageResult");
+
+
+  if (!prompt) {
+
+    status.textContent =
+      "Please describe the picture you want first.";
+
+    result.style.display = "none";
+
+    return;
+  }
+
+
+  status.textContent =
+    "🎨 Creating your picture... Please wait.";
+
+  result.style.display = "none";
+
+
+  try {
+
+    const response = await fetch(
+      "/api/generate-image",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          prompt: prompt
+        })
+      }
+    );
+
+
+    const data = await response.json();
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Image generation failed."
+      );
+    }
+
+
+    if (!data.image) {
+      throw new Error(
+        "No image was returned."
+      );
+    }
+
+
+    status.textContent =
+      "✨ Your picture is ready!";
+
+
+    result.innerHTML = `
+      <img
+        class="generated-image"
+        src="data:image/png;base64,${data.image}"
+        alt="AI generated picture"
+      >
+    `;
+
+    result.style.display = "block";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.textContent =
+      "❌ Sorry, I couldn't create the picture.";
+
+    result.innerHTML =
+      "Please try again.";
+
+    result.style.display = "block";
+  }
+
+}
+
 </script>
+
 </body>
-  </html>
+        </html>

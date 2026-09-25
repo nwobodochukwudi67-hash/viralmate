@@ -37,10 +37,6 @@ app.post("/api/generate-image", async (req, res) => {
     res.json({
       image: result.data[0].b64_json
     });
-  } catch (error) {
-    console.error("Image generation error:", error);
-
-
 
   } catch (error) {
     console.error("Image generation error:", error);
@@ -50,9 +46,7 @@ app.post("/api/generate-image", async (req, res) => {
     });
   }
 });
-});
-  }
-});
+
 app.get("/{*splat}", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
